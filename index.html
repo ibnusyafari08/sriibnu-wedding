@@ -667,43 +667,36 @@ window.addEventListener("load", function () {
   }
 
   const params = new URLSearchParams(window.location.search);
-  let rawName = params.get('to');
-  const withPartner = params.get('with');
+  const rawName = params.get('to');
+  const rawPartner = params.get('partner');
 
   if (!rawName) return;
 
-  const baseName = capitalizeWords(decodeURIComponent(rawName));
+  const guestName = capitalizeWords(decodeURIComponent(rawName));
+  const partnerName = rawPartner
+    ? capitalizeWords(decodeURIComponent(rawPartner))
+    : null;
 
   const guestText = document.getElementById('guest-name');
   const rsvpInput = document.getElementById('nama');
-  const jumlahInput = document.getElementById('jumlah');
 
-  // ==== HERO (tampilan) ====
+  // ==== HERO ====
   if (guestText) {
-    guestText.textContent =
-      withPartner === 'partner'
-        ? baseName + ' & Partner'
-        : baseName;
+    guestText.textContent = partnerName
+      ? `${guestName} & ${partnerName}`
+      : guestName;
   }
 
-  // ==== RSVP NAMA (tanpa & Partner) ====
+  // ==== RSVP ====
   if (rsvpInput) {
-    rsvpInput.value = baseName;
+    rsvpInput.value = partnerName
+      ? `${guestName} & ${partnerName}`
+      : guestName;
     rsvpInput.readOnly = true;
-  }
-
-  // ==== JUMLAH TAMU ====
-  if (jumlahInput) {
-    if (withPartner === 'partner') {
-      jumlahInput.min = 1;
-      jumlahInput.value = Math.max(1, parseInt(jumlahInput.value || 1));
-    } else {
-      jumlahInput.min = 1;
-      jumlahInput.value = Math.max(1, parseInt(jumlahInput.value || 1));
-    }
   }
 })();
 </script>
+
 
 <script>
 function copyRekening(norek) {
