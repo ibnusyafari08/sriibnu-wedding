@@ -515,7 +515,7 @@
 </footer>
 
 <div id="audio-container">
-  <audio id="song" autoplay loop>
+  <audio id="song" loop>
     <source src="audio/song.mp3" type="audio/mp3"> 
   </audio>
 
@@ -570,49 +570,54 @@
   const audioIcon = audioWrapper.querySelector('i');
   const song = document.getElementById('song');
 
+  const MAX_VOLUME = 0.10; // 🔉 volume global (kecil & nyaman)
+
   let isPlaying = false;
 
   function playAudio() {
-  song.volume = 0.02; // sangat kecil di awal
-  song.play();
+    song.pause();
+    song.currentTime = 0;
 
-  audioWrapper.style.display = 'flex';
-  audioWrapper.classList.add('rotate');
-  audioIcon.className = 'bi bi-disc';
+    song.volume = 0; // mulai senyap
+    song.play();
 
-  isPlaying = true;
+    audioWrapper.style.display = 'flex';
+    audioWrapper.classList.add('rotate');
+    audioIcon.className = 'bi bi-disc';
 
-  // Fade in volume (naik perlahan)
-  let targetVolume = 0.3; // volume normal
-  let step = 0.01;
+    isPlaying = true;
 
-  let fade = setInterval(() => {
-    if (song.volume < targetVolume) {
-      song.volume = Math.min(song.volume + step, targetVolume);
-    } else {
-      clearInterval(fade);
-    }
-  }, 150);
-}
+    // 🎵 fade in lembut
+    let step = 0.003;
+    let interval = 180;
+
+    let fade = setInterval(() => {
+      if (song.volume < MAX_VOLUME) {
+        song.volume = Math.min(song.volume + step, MAX_VOLUME);
+      } else {
+        clearInterval(fade);
+      }
+    }, interval);
+  }
 
   openBtn.addEventListener('click', function (e) {
-  e.preventDefault();
+    e.preventDefault();
 
-  document.documentElement.classList.remove('lock-scroll');
-  document.body.classList.remove('lock-scroll');
-  document.body.style.top = '';
+    document.documentElement.classList.remove('lock-scroll');
+    document.body.classList.remove('lock-scroll');
+    document.body.style.top = '';
 
-  // ===== TAMPILKAN NAVBAR =====
-  document.querySelector('.mynavbar').classList.add('show');
+    document.querySelector('.mynavbar').classList.add('show');
 
-  window.scrollTo({
-    top: document.getElementById('quran').offsetTop,
-    behavior: 'smooth'
+    window.scrollTo({
+      top: document.getElementById('quran').offsetTop,
+      behavior: 'smooth'
+    });
+
+    playAudio(); // ▶️ PLAY AUDIO
   });
 
-  playAudio();
-});
-
+  // ▶️ toggle play / pause
   audioWrapper.addEventListener('click', function () {
     if (isPlaying) {
       song.pause();
@@ -623,10 +628,10 @@
       audioWrapper.classList.add('rotate');
       audioIcon.className = 'bi bi-disc';
     }
-
     isPlaying = !isPlaying;
   });
 </script>
+
 
 <script>
 window.addEventListener("load", function () {
