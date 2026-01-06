@@ -49,7 +49,7 @@
 </section>
 
 
-    <nav class="navbar navbar-expand-md bg-transparent sticky-top mynavbar">
+    <nav class="navbar navbar-expand-md navbar-dark bg-transparent mynavbar">
   <div class="container">
     <a class="navbar-brand" href="#">Ibnu & Sri</a>
     <button class="navbar-toggler border-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
@@ -75,6 +75,15 @@
     </div>
   </div>
 </nav>
+
+<!-- ORNAMEN GLOBAL (MULAI QURAN) -->
+<div class="ornament-wrapper">
+
+  <!-- ORNAMEN -->
+  <div class="floral floral-left"></div>
+  <div class="floral floral-right"></div>
+  <div class="ornament ornament-top"></div>
+  <div class="ornament ornament-bottom"></div>
 
 <section id="quran" class="quran-section text-center text-white d-flex align-items-center">
   <div class="container">
@@ -104,6 +113,7 @@
       <div class="col-md-8 text-center mx-auto">
         <h2 class="fade-up">Acara Pernikahan</h2>
         <h3 class="fade-up">Diselenggarakan pada tanggal 26 April 2026 <br> di Kec. Pemangkat, Kab. Sambas.</h3>
+        <br>
         <p class="fade-up">Tanpa mengurangi rasa hormat, kami bermaksud untuk mengundang Bapak/Ibu/Saudara/i serta kerabat sekalian, untuk menghadiri acara pernikahan kami</p>
       </div>
     </div>
@@ -112,7 +122,7 @@
         <div class="row">
           <div class="col-8 text-end">
             <h3>Ibnu Syafari</h3>
-            <p>Putra kedua dari <br> Bapak Oni Syafari & Ibu Winda Andriani</p>
+            <p>Putra kedua dari <br> Bapak H. Oni Syafari & <br> Ibu Hj. Winda Andriani</p>
           </div>
           <div class="col-4">
             <img src="img/mempelai pria.png" alt="Ibnu Syafari" class="img-responsive rounded-circle">
@@ -129,7 +139,7 @@
           </div>
           <div class="col-8">
             <h3>Sri Wahyuni</h3>
-            <p>Putri ketiga dari <br> Bapak Rajimin & Ibu Nurhayati</p>
+            <p>Putri ketiga dari <br> Bapak Rajimin & <br> Ibu Nurhayati</p>
           </div>
         </div>
       </div>
@@ -406,7 +416,7 @@
 
     <div class="row justify-content-center text-center">
       <div class="col-md-6">
-        <ul class="list-group">
+        <ul class="list-group-item bg-transparent border-0">
           <li class="list-group-item">
           <div class="fw-bold">Alamat Rumah</div>
           Jl. SDN 04, Gg. Asmadi Busri No.79 RT007/RW008 <br> Dusun Mekar Lestari, Desa Harapan, <br> Kec. Pemangkat, Kab. Sambas, Kalimantan Barat. <br> Kode Pos 79455
@@ -551,21 +561,6 @@
 
     </script>
 
-  <script>
-  const stickyTop = document.querySelector('.sticky-top');
-  const offcanvas = document.getElementById('offcanvasNavbar');
-
-  if (offcanvas && stickyTop) {
-    offcanvas.addEventListener('show.bs.offcanvas', () => {
-      stickyTop.style.overflow = 'visible';
-    });
-
-    offcanvas.addEventListener('hidden.bs.offcanvas', () => {
-      stickyTop.style.overflow = 'visible()';
-    });
-  }
-</script>
-
 
     <script src="https://cdn.jsdelivr.net/npm/bs5-lightbox@1.8.5/dist/index.bundle.min.js"></script>
 
@@ -607,6 +602,9 @@
   document.body.classList.remove('lock-scroll');
   document.body.style.top = '';
 
+  // ===== TAMPILKAN NAVBAR =====
+  document.querySelector('.mynavbar').classList.add('show');
+
   window.scrollTo({
     top: document.getElementById('quran').offsetTop,
     behavior: 'smooth'
@@ -614,7 +612,6 @@
 
   playAudio();
 });
-
 
   audioWrapper.addEventListener('click', function () {
     if (isPlaying) {
@@ -849,6 +846,37 @@ document.addEventListener("DOMContentLoaded", () => {
   faders.forEach(fader => {
     appearOnScroll.observe(fader);
   });
+});
+</script>
+
+<script>
+document.addEventListener("scroll", () => {
+  const y = window.scrollY;
+
+  document.querySelector(".floral-left").style.transform =
+    `translateY(${y * 0.25}px) rotate(${y * 0.02}deg)`;
+
+  document.querySelector(".floral-right").style.transform =
+    `translateY(-${y * 0.2}px) rotate(-${y * 0.02}deg)`;
+});
+</script>
+
+<script>
+const wrapper = document.querySelector('.ornament-wrapper');
+const floralLeft = document.querySelector('.floral-left');
+const floralRight = document.querySelector('.floral-right');
+
+window.addEventListener('scroll', () => {
+  const start = wrapper.offsetTop;
+  const y = window.scrollY - start;
+
+  if (y < 0) return;
+
+  floralLeft.style.transform =
+    `translateY(${y * 0.15}px) rotate(${y * 0.01}deg)`;
+
+  floralRight.style.transform =
+    `translateY(-${y * 0.12}px) rotate(-${y * 0.01}deg)`;
 });
 </script>
 

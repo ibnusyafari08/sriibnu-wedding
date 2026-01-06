@@ -1,21 +1,35 @@
 html.lock-scroll,
 body.lock-scroll {
   overflow: hidden;
-  position: fixed;
   width: 100%;
 }
 
 :root {
     --pink: #f14e95;
     --bg: #0a0a0a;
-    --shadow: 0 2px 2px rgb(0 0 0 / 0.5);
+    --shadow: 0 2px 2px rgba(11, 1, 1, 0.5);
+    --panel-bg: rgba(255, 255, 255, 0.65);
 }
 
 body {
+  background:
+    linear-gradient(
+      to bottom,
+      #f07777 0%,
+      #f06a6a 25%,
+      #8b1a1a 50%,
+      #4a050e 85%,
+      #150104 100%
+    );
+  background-attachment: fixed;
+}
+
+section {
+  position: relative;
+  background: transparent !important;
   font-size: 1.2rem;
   font-family: "Work Sans", sans-serif;
 }
-
 
 .hero::before {
     content: '';
@@ -54,6 +68,7 @@ body {
 
 .hero p {
     font-size: 1.1rem;
+    font-weight: bold;
 }
 
 .hero a {
@@ -77,25 +92,59 @@ body {
 }
 
 .home {
-    background-image: url(img/bg.jpg);
-    background-size: cover;
-    min-height: 100vh;
-    padding-top: 8rem;
-    padding-bottom: 5rem;
+    background-image: url(img/images.jpg);
+     position: relative;
+     overflow: hidden;
+     background-position: center;
+     background-repeat: no-repeat;
+     display: flex;
+     align-items: center;
+     background-size: cover;
+     min-height: 100vh;
+     padding-top: 8rem;
+     padding-bottom: 5rem;
 }
 
-.navbar {
-    background-color: rgba(255, 255, 255, 0.5) !important;
-    backdrop-filter: blur(4px);
+/* ===== NAVBAR AWAL (SEMBUNYI) ===== */
+.mynavbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10000; /* KALAHKAN ORNAMEN */
+
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-100%);
+  transition: all 0.6s ease;
 }
+
+/* ===== NAVBAR SETELAH BUKA UNDANGAN ===== */
+.mynavbar.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
 
 .mynavbar .offcanvas {
     height: 100vh;
 }
 
-.home h2,
+.home h2 {
+    color: #fff;
+    font-family: 'sacramento';
+    font-size: 5rem;
+    font-weight: bold;
+    text-shadow: var(--shadow);
+}
+
 .rsvp h2 {
-    color: var(--pink);
+    color: #fff;
     font-family: 'sacramento';
     font-size: 5rem;
     font-weight: bold;
@@ -103,14 +152,16 @@ body {
 }
 
 .home h3 {
-    color: #0a0a0a;
+    color: #fff;
     font-size: 1.5rem;
     margin-bottom: 1rem;
+    text-shadow: var(--shadow);
 }
 
 .home p {
     font-size: 1.1rem;
-    color: var(--bg);
+    color: #fff;
+    text-shadow: var(--shadow);
 }
 
 .home .couple {
@@ -121,7 +172,8 @@ body {
 .home .couple h3 {
     font-family: 'sacramento', cursive;
     font-size: 2.5rem;
-    color: var(--pink);
+    color: #fff;
+    text-shadow: var(--shadow);
 }
 
 .home .couple img {
@@ -142,7 +194,7 @@ body {
 
 .home .heart i {
     margin: auto;
-    color: var(--pink);
+    color:  #8b1a1a;
 }
 
 .info {
@@ -153,7 +205,7 @@ body {
 }
 
 .info h2 {
-    color: var(--pink);
+    color: #fff;
     font-family: 'sacramento';
     font-size: 5rem;
     font-weight: bold;
@@ -164,9 +216,9 @@ body {
 }
 
 .info .card {
-    background-color: rgba(255, 255, 255, 0.2) !important;
+    background-color: rgba(235, 149, 149, 0.5) !important;
     color: white !important;
-    border: 1px solid white;
+    border: 1px solid #fff;
 }
 
 .info .card-header {
@@ -187,7 +239,7 @@ body {
 .story h2,
 .gallery h2,
 .gifts h2 {
-    color: var(--pink);
+    color: #fff;
     font-family: 'sacramento';
     font-size: 5rem;
     font-weight: bold;
@@ -205,7 +257,7 @@ body {
 
 .story-singkatan {
     display: block;
-    color: #666;
+    color: white;
     font-size: 1rem;
     letter-spacing: 1rem;
     margin-bottom: 0.8rem;
@@ -216,7 +268,7 @@ body {
     display: inline-block;
     font-size: 1rem;
     font-style: italic;
-    color: var(--pink);
+    color: #fff;
     letter-spacing: normal;
     margin-top: 0.5rem;
 }
@@ -225,6 +277,7 @@ body {
 .gallery p,
 .rsvp p,
 .gifts p {
+    color: #fff;
     font-size: 1rem;
     font-weight: 400;
 }
@@ -236,13 +289,17 @@ body {
     position: relative;
 }
 
+.timeline h3 {
+    color: #fff;
+}
+
 .timeline::before {
     content: '';
     top: 0;
     bottom: 0;
     position: absolute;
     width: 1px;
-    background-color: var(--pink);
+    background-color: #fff;
     left: 50%;
 }
 
@@ -267,7 +324,7 @@ body {
 .timeline li .timeline-image {
     width: 160px;
     height: 160px;
-    background-color: var(--pink);
+    background-color: var(--panel-bg);
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
@@ -281,11 +338,11 @@ body {
 .timeline li .timeline-panel {
     width: 40%;
     float: left;
-    border: 1px solid var(--pink);
+    border: 1px solid #fff;
     padding: 2rem;
     position: relative;
     border-radius: 5px;
-    background-color: #fff;
+    background-color: rgba(235, 149, 149, 0.5);
     text-align: right;
 }
 
@@ -302,7 +359,7 @@ body {
     right: -15px;
     border-top: 15px solid transparent;
     border-bottom: 15px solid transparent;
-    border-left: 15px solid var(--pink);
+    border-left: 15px solid #fff;
 }
 
 .timeline li .timeline-panel::after {
@@ -310,7 +367,6 @@ body {
     position: absolute;
     top: 101px;
     right: -14px;
-
     border-top: 14px solid transparent;
     border-bottom: 14px solid transparent;
     border-left: 14px solid #fff;
@@ -330,7 +386,7 @@ body {
     left: -15px;
     right: auto;
     border-left: none;
-    border-right: 15px solid var(--pink);
+    border-right: 15px solid #fff;
 }
 
 .timeline li.timeline-inverted .timeline-panel::after {
@@ -338,6 +394,10 @@ body {
     right: auto;
     border-left: none;
     border-right: 14px solid #fff;
+}
+
+.timeline li.timeline-inverted h3 {
+    color: #fff;
 }
 
 .gallery {
@@ -361,15 +421,15 @@ body {
 }
 
 .rsvp button {
-    background-color: #f14e95;
-    color: #fff;
-    border: 1px solid var(--pink);
+    background-color: #fff;
+    color: #710413;
+    border: 1px solid #fff;
 }
 
 .rsvp button:hover {
-    background-color: #fff;
-    color: var(--pink);
-    border: 1px solid #fff;
+    background-color: #710413;
+    color: #fff;
+    border: 1px solid #710413;
 }
 
 .gifts span {
@@ -383,7 +443,7 @@ body {
 
 footer {
     padding: 3rem;
-    background-color: var(--pink);
+    background-color: #87414a;
     color: #fff;
 }
 
@@ -434,7 +494,7 @@ footer li {
   width: 100%;
   max-width: 360px;
   background: linear-gradient(135deg, #eefa0b, #a5ae50);
-  color: #fff;
+  color: black;
   border-radius: 18px;
   padding: 20px;
   box-shadow: 0 10px 25px rgba(0,0,0,.25);
@@ -526,14 +586,16 @@ footer li {
 }
 
 .quran-section {
+  position: relative;
   min-height: 100vh;
-  background: linear-gradient(
-      rgba(252, 102, 214, 0.55),
-      rgba(207, 89, 154, 0.55)
-    ),
-    url("img/bg-quran.jpg") center / cover no-repeat;
-  padding: 60px 20px;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
 }
+
 
 .quran-section h2 {
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
@@ -602,6 +664,51 @@ footer li {
   opacity: 1;
   transform: translateX(0) translateY(0);
 }
+
+/* =========================
+   FLORAL ORNAMENT
+   ========================= */
+
+.floral {
+  position: fixed;
+  width: 420px;
+  height: 420px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  opacity: 0.22;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* kiri atas */
+.floral-left {
+  top: -100px;
+  left: -100px;
+  background-image: url("img/floral-maroon-left.png");
+}
+
+/* kanan bawah */
+.floral-right {
+  bottom: -120px;
+  right: -120px;
+  background-image: url("img/floral-maroon-right.png");
+}
+
+/* semua konten tetap di atas */
+section,
+.navbar,
+footer {
+  z-index: 2;
+}
+
+/* =========================
+   TEKS ALAMAT PUTIH (GIFTS)
+   ========================= */
+
+.gifts div {
+  color: #fff !important;
+}
+
 
 /* Media Query */
 /* Exrta Large*/
