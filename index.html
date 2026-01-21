@@ -9,7 +9,12 @@
 
       <link rel="preconnect" href="https://fonts.googleapis.com">
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-      <link href="https://fonts.googleapis.com/css2?family=Sacramento&family=Work+Sans&display=swap" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css2?family=Allura&family=Great+Vibes&family=Love+Light&family=Meie+Script&family=Sacramento&family=Work+Sans&display=swap" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+      <link rel="stylesheet" href="style.css">
+
 
       <!-- simlyCountdown -->
        <link rel="stylesheet" href="countdown/default.min.css">
@@ -22,6 +27,86 @@
   </head>
   <body class="lock-scroll">
 
+    <!-- LAYER ANIMASI MEMPELAI -->
+<div id="opening-animation" class="opening-anim">
+  <div class="anim-wrapper">
+    <img src="img/burung.png" class="bird bird-1" alt="Bird">
+    <img src="img/burung.png" class="bird bird-2" alt="Bird">
+
+    <img src="img/bangunan.png" class="bg-building" alt="Background Building">
+    
+    <img src="img/floral-maroon-left.png" class="side-ornament left" alt="Ornament Left">
+    <img src="img/floral-maroon-right.png" class="side-ornament right" alt="Ornament Right">
+
+    <img src="img/wanita.png" class="groom" alt="Groom">
+    <img src="img/pria.png" class="bride" alt="Bride">
+  </div>
+</div>
+
+   <script>
+  // Fungsi untuk mematikan scroll
+  function disableScroll(e) {
+    e.preventDefault();
+  }
+
+  // Aktifkan kunci saat halaman dimuat
+  document.addEventListener('wheel', disableScroll, { passive: false });
+  document.addEventListener('touchmove', disableScroll, { passive: false });
+  document.addEventListener('keydown', function(e) {
+    if(["Space","ArrowUp","ArrowDown"].includes(e.code)) e.preventDefault();
+  }, { passive: false });
+
+  // Fungsi untuk MEMBUKA kunci (Akan dipanggil di tombol Buka Undangan)
+  function enableScroll() {
+  document.removeEventListener('wheel', disableScroll);
+  document.removeEventListener('touchmove', disableScroll);
+  document.onkeydown = null;
+
+  document.body.classList.remove('lock-scroll');
+  document.documentElement.classList.remove('lock-scroll');
+
+  document.body.style.position = '';
+  document.body.style.top = '';
+  document.body.style.width = '';
+}
+</script>
+
+    <script>
+  // MATIKAN RESTORE SCROLL
+  if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+  }
+
+  // JIKA ADA #hash → HAPUS
+  if (window.location.hash) {
+    history.replaceState(
+      null,
+      document.title,
+      window.location.pathname + window.location.search
+    );
+  }
+
+  // PAKSA KE HERO
+  document.documentElement.scrollTop = 0;
+  document.body.scrollTop = 0;
+
+  setTimeout(() => {
+    window.scrollTo(0, 0);
+  }, 50);
+</script>
+
+    <div class="bg-slider-container">
+  <div class="bg-slider-track">
+    <div class="slide" style="background-image: url('img/foto-background-1.jpg');"></div>
+    <div class="slide" style="background-image: url('img/foto-background-2.jpg');"></div>
+    <div class="slide" style="background-image: url('img/foto-background-3.jpg');"></div>
+    <div class="slide" style="background-image: url('img/foto-background-4.jpg');"></div>
+    <div class="slide" style="background-image: url('img/foto-background-5.jpg');"></div>
+    <div class="slide" style="background-image: url('img/foto-background-1.jpg');"></div>
+  </div>
+  <div class="bg-overlay"></div>
+</div>
+
     <script>
   let scrollPosition = 0;
 
@@ -32,12 +117,18 @@
   });
 </script>
 
-
- <section id="hero" class="hero w-100 h-100 p-3 mx-auto text-center d-flex justify-content-center align-items-center text-white">
+ <section id="hero" class="hero w-100 h-100 text-center d-flex justify-content-center align-items-center text-white">
   <main>
-    <h4 class="fade-up">
-       Kepada Bapak/Ibu/Saudara/i serta Kerabat Sekalian: <br> <br> Yth. <span id="guest-name">Bapak/Ibu/Saudara/i</span>
-      </h4>
+    <div class="fade-up mx-auto">
+  <p class="fade-up">
+    Kepada Bapak/Ibu/Saudara/i serta Kerabat Sekalian:
+  </p>
+  <div class="guest-card">
+    <span class="guest-prefix">Yth.</span>
+    <span id="guest-name" class="guest-name">Nama Tamu</span>
+  </div>
+</div>
+
       <br>
     <h1 class="fade-up">Ibnu Syafari & Sri Wahyuni</h1>
     <p class="fade-up">Akan melangsungkan resepsi pernikahan dalam:</p>
@@ -62,8 +153,9 @@
       </div>
       <div class="offcanvas-body">
          <div class="navbar-nav ms-auto">
+        <a class="nav-link" href="#foto">Home</a>
         <a class="nav-link" href="#quran">Ayat</a>
-        <a class="nav-link" href="#home">Home</a>
+        <a class="nav-link" href="#home">Acara</a>
         <a class="nav-link" href="#info">Info</a>
         <a class="nav-link" href="#story">Story</a>
         <a class="nav-link" href="#gallery">Gallery</a>
@@ -76,7 +168,52 @@
   </div>
 </nav>
 
-<!-- ORNAMEN GLOBAL (MULAI QURAN) -->
+<script>
+  window.addEventListener('load', () => {
+    window.scrollTo(0, 0);
+
+    const navbar = document.querySelector('.navbar');
+    if (navbar) {
+      navbar.classList.remove('show');
+    }
+  });
+</script>
+
+<section id="foto" class="foto-section text-center text-white d-flex align-items-center">
+<div class="invitation-container">
+
+  <!-- ORNAMEN -->
+  <img src="img/floral-maroon-left.png" class="ornament top-left delay-1">
+  <img src="img/floral-maroon-right.png" class="ornament top-right delay-2">
+  <img src="img/floral-maroon-left.png" class="ornament bottom-left delay-3">
+  <img src="img/floral-maroon-right.png" class="ornament bottom-right delay-4">
+
+  <!-- TEXT -->
+  <h4 class="subtitle fade-in">WELCOME TO</h4>
+  <h1 class="title fade-in">THE WEDDING</h1>
+  <p class="names fade-in">Ibnu Syafari & Sri Wahyuni</p>
+
+  <!-- PHOTO FRAME -->
+  <div class="photo-frame fade-in">
+    <img src="img/gallery/thumbnail/thumbnail 1.png" alt="Couple">
+    <img src="img/floral-maroon-left.png" class="frame-ornament delay-5">
+    <img src="img/floral-maroon-left.png" class="frame-ornament2 delay-6">
+  </div>
+
+  <!-- DATE -->
+  <div class="date fade-in">
+    <span class="fade-left">26</span>
+    <span class="fade-up">APRIL</span>
+    <span class="fade-right">2026</span>
+  </div>
+  <p class="address fade-up">بَارَكَ اللهُ لَكَ، وَبَارَكَ عَلَيْكَ، وَجَمَعَ بَيْنَكُمَا فِي خَيْرٍ<br>
+“Semoga Allah memberkahimu, memberkahi pernikahanmu, dan menghimpun kalian berdua dalam kebaikan.”<br>
+(HR. Abu Dawud, Tirmidzi)</p>
+
+</div>
+
+
+  <!-- ORNAMENT / BACKGROUND SLIDER -->
 <div class="ornament-wrapper">
 
   <!-- ORNAMEN -->
@@ -84,25 +221,26 @@
   <div class="floral floral-right"></div>
   <div class="ornament ornament-top"></div>
   <div class="ornament ornament-bottom"></div>
+</section>
 
 <section id="quran" class="quran-section text-center text-white d-flex align-items-center">
   <div class="container">
-    <h2 class="mb-4">Q.S. Ar-Rum:21</h2>
-
-    <p class="arabic-text">
-      وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُمْ مِنْ أَنْفُسِكُمْ أَزْوَاجًا
-      لِتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُمْ مَوَدَّةً وَرَحْمَةً
-      ۚ إِنَّ فِي ذَٰلِكَ لَآيَاتٍ لِقَوْمٍ يَتَفَكَّرُونَ
+    <h2 class="mb-4 fade-up">Q.S. Ar-Rum:21</h2>
+    <p class="arabic-text fade-left">
+      بِسْــــــــــــــــــمِ اللهِ الرَّحْمَنِ الرَّحِيْمِ
+      <br>
+وَمِنْ اٰيٰتِهٖٓ اَنْ خَلَقَ لَكُمْ مِّنْ اَنْفُسِكُمْ اَزْوَاجًا لِّتَسْكُنُوْٓا اِلَيْهَا وَجَعَلَ بَيْنَكُمْ مَّوَدَّةً وَّرَحْمَةًۗ اِنَّ فِيْ ذٰلِكَ لَاٰيٰتٍ لِّقَوْمٍ يَّتَفَكَّرُوْنَ ۝٢١
     </p>
 
-    <p class="arti mt-4">
-      “Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu
+    <p class="arti mt-4 fade-right">
+      “Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan untukmu
       pasangan hidup dari jenismu sendiri, supaya kamu merasa tenteram
       kepadanya, dan dijadikan-Nya di antaramu rasa kasih dan sayang.
       Sesungguhnya pada yang demikian itu benar-benar terdapat tanda-tanda
       bagi kaum yang berpikir.”
     </p>
 
+  </div>
   </div>
 </section>
 
@@ -117,33 +255,62 @@
         <p class="fade-up">Tanpa mengurangi rasa hormat, kami bermaksud untuk mengundang Bapak/Ibu/Saudara/i serta kerabat sekalian, untuk menghadiri acara pernikahan kami</p>
       </div>
     </div>
+
+    <!-- INISIAL PENGANTIN -->
+<div class="initial-wrapper" id="initial">
+  <span class="initial s">S</span>
+  <span class="divider-line"></span>
+  <span class="initial i">I</span>
+</div>
+
+
     <div class="row couple">
-      <div class="col-lg-6 fade-left">
-        <div class="row">
-          <div class="col-8 text-end">
-            <h3>Ibnu Syafari</h3>
-            <p>Putra kedua dari <br> Bapak H. Oni Syafari & <br> Ibu Hj. Winda Andriani</p>
-          </div>
-          <div class="col-4">
-            <img src="img/mempelai pria.png" alt="Ibnu Syafari" class="img-responsive rounded-circle">
+  <!-- PRIA -->
+  <div class="col-lg-6 fade-left">
+    <div class="row">
+      <div class="col-8 text-end">
+        <h3>Ibnu Syafari</h3>
+
+        <div class="parent-card">
+          <div class="role">Putra kedua dari:</div>
+          <div class="parent-name">
+            Bapak H. Ony Syafari <br>
+            & Ibu Hj. Winda Andriani
           </div>
         </div>
       </div>
-
-      <span class="heart"><i class="bi bi-heart-fill"></i></span>
-
-      <div class="col-lg-6 fade-right">
-        <div class="row">
-          <div class="col-4">
-            <img src="img/mempelai wanita.png" alt="Sri Wahyuni" class="img-responsive rounded-circle">
-          </div>
-          <div class="col-8">
-            <h3>Sri Wahyuni</h3>
-            <p>Putri ketiga dari <br> Bapak Rajimin & <br> Ibu Nurhayati</p>
-          </div>
-        </div>
+      <div class="col-4">
+        <img src="img/mempelai pria.png" alt="Ibnu Syafari" class="img-responsive rounded-circle">
       </div>
     </div>
+  </div>
+
+  <span class="heart"><i class="bi bi-heart-fill"></i></span>
+  <div class="initial-divider">&</div>
+
+  <!-- WANITA -->
+  <div class="col-lg-6 fade-right">
+    <div class="row">
+      <div class="col-4">
+        <img src="img/mempelai wanita.png" alt="Sri Wahyuni" class="img-responsive rounded-circle">
+      </div>
+      <div class="col-8">
+        <h3>Sri Wahyuni</h3>
+
+        <div class="parent-card">
+          <div class="role">Putri ketiga dari:
+          </div>
+          <div class="parent-name">
+            Bapak Rajimin <br>
+            & Ibu Nurhayati
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
   </div>
 </section>
 
@@ -154,8 +321,17 @@
       <div class="col-md-8 col-10 text-center">
         <h2 class="fade-up">Informasi Acara</h2>
         <p class="alamat fade-up">Alamat: Jl. SDN 4, Gang H.Asmadi Busri, <br> Desa Harapan, Kec.Pemangkat, Kab.Sambas</p>
-        <a href="https://maps.app.goo.gl/6ZJakq5i2FdnAxwM9" target="_blank" class="btn btn-light btn-sm my-4 fade-up">Click Untuk Membuka Maps</a>
-        <p class="fade-up">Save The Date</p>
+       <a href="https://maps.app.goo.gl/6ZJakq5i2FdnAxwM9" target="_blank" class="d-block mb-2 fade-up">
+  <img src="img/ea1dd305-4612-4206-808e-da27b178c9e2.png" alt="Lokasi Acara" class="img-fluid rounded shadow">
+</a>
+
+<a href="https://maps.app.goo.gl/6ZJakq5i2FdnAxwM9"
+   target="_blank"
+   class="btn btn-map my-2 fade-up">
+  Click Untuk Membuka Maps
+</a>
+
+        <p class="fade-up" style="font-family: 'Sacramento';">Save The Date</p>
       </div>
     </div>
 
@@ -171,11 +347,15 @@
               </div>
               <div class="col-md-6">
                 <i class="bi bi-calendar-event d-block"></i>
-                <span>Selasa, <br> 10 Maret 2026</span>
+                <span>Selasa, <br> 10 Maret 2026 <br> 21 Ramadhan 1447H</span>
               </div>
             </div>
           </div>
-          <div class="card-footer">Tertutup</div>
+          <div class="card-footer rata-justify" style="text-align: justify;">
+            Dengan penuh rasa syukur kepada Allah SWT, kami telah melangsungkan akad nikah pada bulan suci Ramadhan.
+Mengingat kekhusyukan bulan yang mulia ini serta keterbatasan yang ada, tanpa mengurangi rasa hormat akad nikah dilaksanakan secara tertutup dan hanya dihadiri oleh keluarga inti.
+Oleh karena itu, kami mohon doa restu dari Bapak/Ibu/Saudara/i agar pernikahan ini senantiasa diberkahi Allah SWT, dan menjadi keluarga yang sakinah, mawaddah, warahmah.
+          </div>
         </div>
       </div>
       <div class="col-md-5 col-10 fade-up">
@@ -189,11 +369,14 @@
               </div>
               <div class="col-md-6">
                 <i class="bi bi-calendar-event d-block"></i>
-                <span>Minggu, <br> 26 April 2026</span>
+                <span>Minggu, <br> 26 April 2026 <br> 10 Syawal 1447H</span>
               </div>
             </div>
           </div>
-          <div class="card-footer">Di tunggu kehadirannya</div>
+          <div class="card-footer rata-justify" style="text-align: justify;">
+            Dengan segala kerendahan hati, kami mengundang Bapak/Ibu/Saudara/i untuk hadir pada acara resepsi pernikahan kami.
+Kehadiran dan doa restu Anda akan menjadi kehormatan dan kebahagiaan bagi kami.
+          </div>
         </div>
       </div>
     </div>
@@ -204,9 +387,9 @@
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-md-8 col-10 text-center">
-        <span class="story-singkatan">SRIusmeNUnggu</span>
-        <h2>Cerita Kami</h2>
-        <p>Satu Dasawarsa telah kami jalani dan tibalah hari di mana kami di persatukan dalam  satu ikatan yang sah</p>
+        <span class="story-singkatan fade-up">SRIusmeNUnggu</span>
+        <h2 class="fade-up">Cerita Kami</h2>
+        <p class="fade-up">Lebih dari Satu Dasawarsa telah kami jalani dan tibalah hari di mana kami di persatukan dalam satu ikatan yang sah</p>
       </div>
     </div>
 
@@ -214,30 +397,30 @@
   <div class="col">
     <ul class="timeline">
       <li>
-  <div class="timeline-image" style="background-image: url(img/timeline-1.jpeg);"></div>
+  <div class="timeline-image fade-up" style="background-image: url(img/timeline-1.PNG);"></div>
 
-  <div class="timeline-panel">
+  <div class="timeline-panel fade-left">
     <div class="timeline-heading">
-      <h3>Pertemuan Pertama</h3>
-      <span class="story-waktu">Semasa SMP (2014)</span>
+      <h3 class="fade-left">Pertemuan Pertama</h3>
+      <span class="story-waktu fade-left">Semasa SMP (2014)</span>
     </div>
-    <div class="timeline-body">
+    <div class="timeline-body fade-left">
       <p>
         di kelas IX F lah kami pertama kali bertemu. Awalnya, kami tidak terlalu akrab-hanya sekadar saling mengenal. Namun, ada sesuatu yang tak bisa dijelaskan; kilatan kecocokan muncul begitu saja di antara kami, seolah menandai awal dari sebuah persahabatan yang akan tumbuh lebih dari sekadar teman sekelas.
       </p>
     </div>
   </div>
 </li>
-           <li class="timeline-inverted">
-  <div class="timeline-image" style="background-image: url(img/timeline-3.jpeg);"></div>
+           <li class="timeline-inverted fade-left">
+  <div class="timeline-image fade-up" style="background-image: url(img/timeline-3.PNG);"></div>
 
-  <div class="timeline-panel">
-    <div class="timeline-heading">
-      <h3>Awal Dekat</h3>
-      <span class="story-waktu">Setelah lulus SMP (2015)</span>
+  <div class="timeline-panel fade-left">
+    <div class="timeline-heading fade-left">
+      <h3 class="fade-left">Awal Dekat</h3>
+      <span class="story-waktu fade-left">Setelah lulus SMP (2015)</span>
     </div>
 
-    <div class="timeline-body">
+    <div class="timeline-body fade-left">
       <p>
         langkah kami mulai bercabang, masing-masing menuju sekolah yang berbeda. Tapi anehnya, jarak tak pernah mampu memisahkan kami. Satu tahun bersama di kelas itu telah menorehkan begitu banyak tawa, canda, dan rahasia kecil yang kini terasa seperti harta karun kenangan. Persahabatan yang terjalin begitu dekat itu seakan menegaskan bahwa ikatan hati tak selalu diukur dari jarak-melainkan dari momen yang kami bagi bersama.
       </p>
@@ -245,32 +428,32 @@
   </div>
 </li>
     </ul>
-     <ul class="timeline">
+     <ul class="timeline fade-left">
       <li>
-  <div class="timeline-image" style="background-image: url(img/timeline-4.jpeg);"></div>
+  <div class="timeline-image fade-up" style="background-image: url(img/timeline-4.PNG);"></div>
 
-  <div class="timeline-panel">
-    <div class="timeline-heading">
-      <h3>Mulai Serius</h3>
-      <span class="story-waktu">Komitmen (08 agustus 2015)</span>
+  <div class="timeline-panel fade-left">
+    <div class="timeline-heading fade-left">
+      <h3 class="fade-left">Mulai Serius</h3>
+      <span class="story-waktu fade-left">Komitmen (08 agustus 2015)</span>
     </div>
-    <div class="timeline-body">
+    <div class="timeline-body fade-left">
       <p>
         Dari sebuah tanggal yang sederhana, lahirlah komitmen luar biasa. Hari jadian menjadi saksi awal cerita kami, dan hari ini kami memilih untuk mengikat janji dalam satu ikatan pernikahan.
       </p>
     </div>
   </div>
 
-        <li class="timeline-inverted">
-  <div class="timeline-image" style="background-image: url(img/timeline-6.jpeg);"></div>
+        <li class="timeline-inverted fade-left">
+  <div class="timeline-image fade-up" style="background-image: url(img/timeline-6.PNG);"></div>
 
-  <div class="timeline-panel">
-    <div class="timeline-heading">
-      <h3>Lamaran</h3>
-      <span class="story-waktu">Lamaran (27 Desember 2025)</span>
+  <div class="timeline-panel fade-left">
+    <div class="timeline-heading fade-left">
+      <h3 class="fade-left">Lamaran</h3>
+      <span class="story-waktu fade-left">Lamaran (27 Desember 2025)</span>
     </div>
 
-    <div class="timeline-body">
+    <div class="timeline-body fade-left">
       <p>
        Lamaran menjadi langkah awal dalam menyempurnakan ibadah. Dengan niat yang baik dan doa keluarga, kami memantapkan hati untuk melanjutkan perjalanan ini ke jenjang pernikahan.
       </p>
@@ -279,16 +462,16 @@
   
 </li>
 <li>
-  <div class="timeline-image" style="background-image: url(img/timeline-7.png);"></div>
+  <div class="timeline-image fade-up" style="background-image: url(img/timeline-7.png);"></div>
 
-  <div class="timeline-panel">
-    <div class="timeline-heading">
-      <h3>Pernikahan</h3>
-      <span class="story-waktu">Janji Suci (10 Maret 2026)</span>
+  <div class="timeline-panel fade-left">
+    <div class="timeline-heading fade-left">
+      <h3 class="fade-left">Pernikahan</h3>
+      <span class="story-waktu fade-left">Janji Suci (10 Maret 2026)</span>
     </div>
-    <div class="timeline-body">
+    <div class="timeline-body fade-left">
       <p>
-        Pada akhirnya setelah menjalani hubungan selama satu dasawarsa hari yang telah kami mimpikan pun tiba. Hari ini bukan hanya tentang menyatukan dua insan, tetapi tentang mengikat janji untuk saling pulang dan saling setia dalam ikatan pernikahan. Kami percaya, cinta yang baik akan berakhir pada pernikahan. Hari ini, kami memulai babak baru sebagai sepasang suami istri. <br> <br> 08-08-2015 / 10-03-2026
+        Pada akhirnya setelah menjalani hubungan selama lebih dari satu dasawarsa hari yang telah kami mimpikan pun tiba. Hari ini bukan hanya tentang menyatukan dua insan, tetapi tentang mengikat janji untuk saling pulang dan saling setia dalam ikatan pernikahan. Kami percaya, cinta yang baik akan berakhir pada pernikahan. Hari ini, kami memulai babak baru sebagai sepasang suami istri. <br> <br> 08-08-2015 / 10-03-2026
     </div>
   </div>
 </li>
@@ -304,41 +487,41 @@
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-md-8 col-10 text-center">
-        <span class="story-singkatan">Memori Kisah Kami</span>
-        <h2>Our Galery</h2>
-        <p>Setiap foto adalah saksi perjalanan cinta kami</p>
+        <span class="story-singkatan fade-up">Memori Kisah Kami</span>
+        <h2 class="fade-up">Our Galery</h2>
+        <p class="fade-up">Setiap foto adalah saksi perjalanan cinta kami</p>
       </div>
     </div>
 
     <div class="row row-cols-md-4 row-cols-sm-3 row-cols-2 row-cols-1 justify-content-center">
       <div class="col mt-3">
-        <a href="img/gallery/thumbnail 1.jpeg" data-toggle="lightbox" data-caption="Ibnu & Sri 1" data-gallery="mygallery">
-          <img src="img/gallery/thumbnail/thumbnail 1.jpeg" alt="Ibnu & Sri 1" class="img-fluid w-100 rounded">
+        <a href="img/gallery/thumbnail/thumbnail 1.png" data-toggle="lightbox" data-caption="Ibnu & Sri 1" data-gallery="mygallery">
+          <img src="img/gallery/thumbnail-1-kecil.png" alt="Ibnu & Sri 1" class="img-fluid w-100 rounded">
         </a>
       </div>
       <div class="col mt-3">
-        <a href="img/gallery/thumbnail 2.jpeg" data-toggle="lightbox" data-caption="Ibnu & Sri 2" data-gallery="mygallery">
-          <img src="img/gallery/thumbnail/thumbnail 2.jpeg" alt="Ibnu & Sri 2" class="img-fluid w-100 rounded">
+        <a href="img/gallery/thumbnail/thumbnail 2.PNG" data-toggle="lightbox" data-caption="Ibnu & Sri 2" data-gallery="mygallery">
+          <img src="img/gallery/thumbnail-2-kecil.png" alt="Ibnu & Sri 2" class="img-fluid w-100 rounded">
         </a>
       </div>
       <div class="col mt-3">
-        <a href="img/gallery/thumbnail 3.jpeg" data-toggle="lightbox" data-caption="Ibnu & Sri 3" data-gallery="mygallery">
-          <img src="img/gallery/thumbnail/thumbnail 3.jpeg" alt="Ibnu & Sri 1" class="img-fluid w-100 rounded">
+        <a href="img/gallery/thumbnail/thumbnail 3.JPG" data-toggle="lightbox" data-caption="Ibnu & Sri 3" data-gallery="mygallery">
+          <img src="img/gallery/thumbnail-3-kecil.png" alt="Ibnu & Sri 3" class="img-fluid w-100 rounded">
         </a>
       </div>
       <div class="col mt-3">
-        <a href="img/gallery/thumbnail 4.jpeg" data-toggle="lightbox" data-caption="Ibnu & Sri 4" data-gallery="mygallery">
-          <img src="img/gallery/thumbnail/thumbnail 4.jpeg" alt="Ibnu & Sri 1" class="img-fluid w-100 rounded">
+        <a href="img/gallery/thumbnail/thumbnail 4.JPG" data-toggle="lightbox" data-caption="Ibnu & Sri 4" data-gallery="mygallery">
+          <img src="img/gallery/thumbnail-4-kecil.png" alt="Ibnu & Sri 4" class="img-fluid w-100 rounded">
         </a>
       </div>
       <div class="col mt-3">
-        <a href="img/gallery/thumbnail 5.jpeg" data-toggle="lightbox" data-caption="Ibnu & Sri 5" data-gallery="mygallery">
-          <img src="img/gallery/thumbnail/thumbnail 5.jpeg" alt="Ibnu & Sri 1" class="img-fluid w-100 rounded">
+        <a href="img/gallery/thumbnail/thumbnail-5.JPG" data-toggle="lightbox" data-caption="Ibnu & Sri 5" data-gallery="mygallery">
+          <img src="img/gallery/thumbnail-5-kecil.png" alt="Ibnu & Sri 5" class="img-fluid w-100 rounded">
         </a>
       </div>
       <div class="col mt-3">
-        <a href="img/gallery/thumbnail 6.jpeg" data-toggle="lightbox" data-caption="Ibnu & Sri 6" data-gallery="mygallery">
-          <img src="img/gallery/thumbnail/thumbnail 6.jpeg" alt="Ibnu & Sri 1" class="img-fluid w-100 rounded">
+        <a href="img/gallery/thumbnail/thumbnail-6.PNG" data-toggle="lightbox" data-caption="Ibnu & Sri 5" data-gallery="mygallery">
+          <img src="img/gallery/thumbnail-6-kecil.png" alt="Ibnu & Sri 5" class="img-fluid w-100 rounded">
         </a>
       </div>
     </div>
@@ -349,8 +532,8 @@
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-md-8 col-10 text-center">
-        <h2>Konfirmasi Kehadiran</h2>
-        <p>Isi form dibawah ini untuk mengkonfirmasi kehadiran.</p>
+        <h2 class="fade-up">Konfirmasi Kehadiran</h2>
+        <p class="fade-up">Isi form dibawah ini untuk mengkonfirmasi kehadiran.</p>
       </div>
     </div>
 
@@ -391,15 +574,19 @@
   <div class="col-12 text-end">
     <button class="btn btn-primary px-5">Kirim</button>
   </div>
-<!-- ===== BUKU TAMU ===== -->
+</form>
+
+<!-- ===== BUKU TAMU (HARUS DI LUAR FORM) ===== -->
 <div class="mt-5">
   <h3 class="text-center text-white mb-4">Ucapan & Doa</h3>
   <div id="bukuTamu" class="row justify-content-center"></div>
+
+  <div class="d-flex justify-content-center mt-4">
+    <nav>
+      <ul class="pagination pagination-sm justify-content-center" id="pagination"></ul>
+    </nav>
+  </div>
 </div>
-
-</form>
-
-
 
   </div>
 </section>
@@ -408,8 +595,8 @@
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-md-8 col-10 text-center">
-        <span>Ungkapan <br> Tanda Kasih</span>
-        <h2>Kirim Hadiah</h2>
+        <span class="fade-up">Ungkapan <br> Tanda Kasih</span>
+        <h2 class="fade-up">Gifts</h2>
         <p>Kehadiran Anda adalah hadiah terindah bagi kami, <br> namun jika berkenan memberikan tanda kasih, <br> dapat melalui:</p>
       </div>
     </div>
@@ -421,7 +608,7 @@
           <div class="fw-bold">Alamat Rumah</div>
           Jl. SDN 04, Gg. Asmadi Busri No.79 RT007/RW008 <br> Dusun Mekar Lestari, Desa Harapan, <br> Kec. Pemangkat, Kab. Sambas, Kalimantan Barat. <br> Kode Pos 79455
         </li>
-        <li class="list-group-item bg-transparent border-0">
+
  <li class="list-group-item bg-transparent border-0">
   <div class="atm-card atm-bca mx-auto">
     
@@ -480,12 +667,12 @@
         <li class="list-group-item">
           <div class="fw-bold">Dana <br> Sri Wahyuni</div>
           <img src="img/QR Dana Sri.jpeg" alt="QR Dana" class="img-thumbnail mt-2" width="150">
-          <div>085822490479</div>
+          <div class="dana-number">085822490479</div>
         </li>
         <li class="list-group-item">
           <div class="fw-bold">Dana <br> Ibnu Syafari</div>
           <img src="img/QR dana ibnu.jpeg" alt="QR Dana" class="img-thumbnail mt-2" width="150">
-          <div>083838920303</div>
+          <div class="dana-number">083838920303</div>
         </li>
       </ul>
       </div>
@@ -516,7 +703,7 @@
 
 <div id="audio-container">
   <audio id="song" loop>
-    <source src="audio/song.mp3" type="audio/mp3"> 
+    <source src="audio/song-1.mp3" type="audio/mp3"> 
   </audio>
 
   <div class="audio-icon-wrapper" style="display: none;">
@@ -525,6 +712,67 @@
 </div>
   
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+
+    <script>
+document.addEventListener("DOMContentLoaded", function () {
+  const offcanvasEl = document.getElementById("offcanvasNavbar");
+  if (!offcanvasEl) return;
+
+  const instance = bootstrap.Offcanvas.getOrCreateInstance(offcanvasEl);
+
+  let startX = 0;
+  let endX = 0;
+
+  offcanvasEl.addEventListener("touchstart", function (e) {
+    startX = e.touches[0].clientX;
+  });
+
+  offcanvasEl.addEventListener("touchmove", function (e) {
+    endX = e.touches[0].clientX;
+  });
+
+  offcanvasEl.addEventListener("touchend", function () {
+    const diff = endX - startX;
+
+    // Jika geser ke kanan lebih dari 80px → tutup
+    if (diff > 80 && offcanvasEl.classList.contains("show")) {
+      instance.hide();
+    }
+
+    startX = 0;
+    endX = 0;
+  });
+});
+</script>
+
+<script>
+document.addEventListener(
+  "pointerdown",
+  function (e) {
+    const offcanvasEl = document.getElementById("offcanvasNavbar");
+    if (!offcanvasEl) return;
+
+    const instance = bootstrap.Offcanvas.getOrCreateInstance(offcanvasEl);
+
+    if (!offcanvasEl.classList.contains("show")) return;
+
+    const isInside = offcanvasEl.contains(e.target);
+    const isToggler = e.target.closest(".navbar-toggler");
+
+    if (!isInside && !isToggler) {
+      instance.hide();
+    }
+  },
+  true // <-- CAPTURE PHASE (kunci agar tembus layer lain)
+);
+</script>
+
+<script>
+document.getElementById('offcanvasNavbar').addEventListener('pointerdown', e => {
+  e.stopPropagation();
+});
+</script>
+
 
 
     <script>
@@ -562,23 +810,20 @@
     </script>
 
 
-    <script src="https://cdn.jsdelivr.net/npm/bs5-lightbox@1.8.5/dist/index.bundle.min.js"></script>
-
 <script>
   const openBtn = document.getElementById('openInvitation');
   const audioWrapper = document.querySelector('.audio-icon-wrapper');
   const audioIcon = audioWrapper.querySelector('i');
   const song = document.getElementById('song');
 
-  const MAX_VOLUME = 0.10; // 🔉 volume global (kecil & nyaman)
-
+  const MAX_VOLUME = 0.10;
   let isPlaying = false;
 
   function playAudio() {
     song.pause();
     song.currentTime = 0;
 
-    song.volume = 0; // mulai senyap
+    song.volume = 0;
     song.play();
 
     audioWrapper.style.display = 'flex';
@@ -587,7 +832,6 @@
 
     isPlaying = true;
 
-    // 🎵 fade in lembut
     let step = 0.003;
     let interval = 180;
 
@@ -600,22 +844,47 @@
     }, interval);
   }
 
-  openBtn.addEventListener('click', function (e) {
-    e.preventDefault();
+ openBtn.addEventListener('click', function (e) {
+  e.preventDefault();
+  const anim = document.getElementById('opening-animation');
+  const targetSection = document.getElementById('foto'); 
+  
+  anim.classList.add('active');
 
-    document.documentElement.classList.remove('lock-scroll');
-    document.body.classList.remove('lock-scroll');
-    document.body.style.top = '';
+  setTimeout(() => {
+    // 1. Sembunyikan layer animasi
+    anim.style.display = 'none';
+    anim.classList.add('finish');
 
-    document.querySelector('.mynavbar').classList.add('show');
+    // 2. Lompat instan ke section foto (TANPA animasi)
+    if (targetSection) {
+      const targetPosition = targetSection.offsetTop;
+      window.scrollTo(0, targetPosition); // <- ini langsung lompat
+    }
 
-    window.scrollTo({
-      top: document.getElementById('quran').offsetTop,
-      behavior: 'smooth'
-    });
+    // 3. Baru aktifkan scroll
+    enableScroll(); 
 
-    playAudio(); // ▶️ PLAY AUDIO
-  });
+    // 4. Munculkan navbar
+    const nav = document.querySelector('.mynavbar');
+    if (nav) {
+      nav.classList.add('show');
+      nav.style.opacity = '1';
+      nav.style.visibility = 'visible';
+    }
+
+    playAudio();
+
+    // 5. Safety: pastikan tetap di section foto
+    setTimeout(() => {
+      if (targetSection) {
+        window.scrollTo(0, targetSection.offsetTop);
+      }
+    }, 50);
+
+  }, 2500); // durasi animasi
+});
+
 
   // ▶️ toggle play / pause
   audioWrapper.addEventListener('click', function () {
@@ -647,7 +916,7 @@ window.addEventListener("load", function () {
       body: data
     })
     .then(() => {
-      alert("Komentar berhasil dikirim 🙏");
+      alert("Komentar berhasil dikirim, Terima Kasih 🙏");
 
       form.reset();
 
@@ -713,73 +982,79 @@ function copyRekening(norek) {
 
 <script>
 const API_URL = "https://script.google.com/macros/s/AKfycbzhUK63t6s48dKzxfT82J4u9JMdbYAhNvt-11ZCfnj_X3sTlnzxqGfD1KAYDRcJ6NTl/exec";
+const LIMIT = 4; 
+let currentPage = 1;
+let allData = [];
 
-document.addEventListener("DOMContentLoaded", () => {
-  loadBukuTamu();
-});
+document.addEventListener("DOMContentLoaded", loadBukuTamu);
 
 function loadBukuTamu() {
   fetch(API_URL)
     .then(res => res.json())
     .then(data => {
-      const container = document.getElementById("bukuTamu");
-      if (!container) return;
+      allData = data
+        .filter(item => item && item.nama && item.komentar)
+        .reverse();
+      render();
+    })
+    .catch(err => console.error("Gagal load data:", err));
+}
 
-      container.innerHTML = "";
+function render() {
+  const container = document.getElementById("bukuTamu");
+  const pagination = document.getElementById("pagination");
+  
+  // 1. Render isi ucapan
+  container.innerHTML = "";
+  const start = (currentPage - 1) * LIMIT;
+  const end = start + LIMIT;
+  const pageData = allData.slice(start, end);
 
-      data.reverse().forEach(item => {
-        if (!item.komentar) return;
-
-        // ===== ICON STATUS =====
-        let statusIcon = "";
-        let statusColor = "";
-
-        if (item.status === "Hadir") {
-          statusIcon = `<i class="bi bi-patch-check-fill"></i>`;
-          statusColor = "text-success";
-        } else if (item.status === "Tidak Hadir") {
-          statusIcon = `<i class="bi bi-patch-minus-fill"></i>`;
-          statusColor = "text-danger";
-        }
-
-        // ===== FORMAT WAKTU =====
-        let waktu = "";
-        if (item.tanggal) {
-          const date = new Date(item.tanggal);
-          waktu = date.toLocaleString("id-ID", {
-            day: "2-digit",
-            month: "long",
-            year: "numeric",
-            hour: "2-digit",
-            minute: "2-digit"
-          });
-        }
-
-        const col = document.createElement("div");
-        col.className = "col-md-8 col-12 mb-3";
-
-        col.innerHTML = `
-          <div class="card shadow-sm">
+  if (pageData.length === 0) {
+    container.innerHTML = `<p class="text-center text-white">Belum ada ucapan.</p>`;
+  } else {
+    pageData.forEach(item => {
+      container.insertAdjacentHTML("beforeend", `
+        <div class="col-md-8 col-12 mb-3 fade-up show">
+          <div class="card shadow-sm border-0" style="border-radius: 15px; background: rgba(255,255,255,0.98);">
             <div class="card-body">
-              <h6 class="mb-1">${item.nama}</h6>
-
-              <small class="${statusColor}">
-                ${statusIcon} ${item.status} • ${item.jumlah} Orang
-              </small><br>
-
-              <small class="text-muted">
-                <i class="bi bi-clock"></i> ${waktu}
+              <h6 class="mb-1 fw-bold" style="color: #900a0a;">${item.nama}</h6>
+              <small class="${item.status === 'Hadir' ? 'text-success' : 'text-danger'} fw-bold">
+                <i class="bi ${item.status === 'Hadir' ? 'bi-check-circle' : 'bi-x-circle'}"></i> ${item.status}
               </small>
-
-              <p class="mt-2 mb-0">${item.komentar}</p>
+              <p class="mt-2 mb-0 text-dark" style="line-height: 1.5;">${item.komentar}</p>
+              <hr class="my-2 opacity-25">
+              <small class="text-muted" style="font-size: 0.7rem;">
+                <i class="bi bi-clock"></i> ${new Date(item.tanggal).toLocaleString("id-ID")}
+              </small>
             </div>
           </div>
-        `;
+        </div>
+      `);
+    });
+  }
 
-        container.appendChild(col);
-      });
-    })
-    .catch(err => console.error("Gagal memuat buku tamu:", err));
+  // 2. Render nomor halaman
+  pagination.innerHTML = "";
+  const totalPage = Math.ceil(allData.length / LIMIT);
+  if (totalPage <= 1) return;
+
+  for (let i = 1; i <= totalPage; i++) {
+    pagination.insertAdjacentHTML("beforeend", `
+      <li class="page-item ${i === currentPage ? 'active' : ''}">
+        <a class="page-link" href="#rsvp" onclick="goToPage(${i}, event)">${i}</a>
+      </li>
+    `);
+  }
+}
+
+function goToPage(page, event) {
+  if (event) event.preventDefault();
+  currentPage = page;
+  render();
+  
+  // Scroll halus ke judul Ucapan agar user tahu halaman sudah berganti
+  document.querySelector('#rsvp h3').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 </script>
 
@@ -833,11 +1108,13 @@ document.addEventListener("DOMContentLoaded", () => {
     rootMargin: "0px 0px -50px 0px"
   };
 
-  const appearOnScroll = new IntersectionObserver((entries, observer) => {
+  const appearOnScroll = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      entry.target.classList.add("show");
-      observer.unobserve(entry.target); // Hanya sekali muncul
+      if (entry.isIntersecting) {
+        entry.target.classList.add("show");
+      } else {
+        entry.target.classList.remove("show"); // <-- reset saat keluar viewport
+      }
     });
   }, appearOptions);
 
@@ -846,6 +1123,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 </script>
+
 
 <script>
 document.addEventListener("scroll", () => {
@@ -878,6 +1156,91 @@ window.addEventListener('scroll', () => {
 });
 </script>
 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+
+<script>
+  const lightbox = GLightbox({
+    selector: '[data-toggle="lightbox"]', // Menggunakan atribut yang sudah Anda buat
+    touchNavigation: true, // Mengaktifkan swipe
+    loop: true, // Bisa swipe terus menerus
+    zoomable: true // Memungkinkan user mencubit layar untuk zoom
+  });
+</script>
+
+<script>
+  function bukaUndangan() {
+  document.body.classList.remove('lock-scroll');
+
+  window.scrollTo(0, 0);
+
+  const nav = document.querySelector('.mynavbar');
+  if (nav) {
+    setTimeout(() => {
+      nav.classList.add('show');
+    }, 300);
+  }
+}
+</script>
+
+<script>
+  function scrollToSection(e, id) {
+    e.preventDefault();
+
+    const target = document.getElementById(id);
+    if (!target) return;
+
+    target.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start'
+    });
+
+    // update URL setelah scroll
+    history.pushState(null, '', '#' + id);
+
+    window.addEventListener('hashchange', () => {
+  window.scrollTo(0, 0);
+});
+  }
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const initial = document.getElementById("initial");
+  if (!initial) return;
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        initial.classList.add("show");   // masuk layar → animasi
+      } else {
+        initial.classList.remove("show"); // keluar layar → reset
+      }
+    });
+  }, { threshold: 0.5 });
+
+  observer.observe(initial);
+});
+</script>
+
+<script>
+  function fixHeroHeight() {
+    const vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+  }
+
+  // saat pertama load
+  window.addEventListener('load', fixHeroHeight);
+
+  // saat resize / rotate
+  window.addEventListener('resize', fixHeroHeight);
+  window.addEventListener('orientationchange', fixHeroHeight);
+
+  // penting untuk iOS / mobile: saat halaman di-refresh atau kembali dari cache
+  window.addEventListener('pageshow', function () {
+    setTimeout(fixHeroHeight, 50);
+  });
+</script>
 
   </body>
 </html>
